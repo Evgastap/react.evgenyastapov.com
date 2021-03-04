@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 function Hero(props) {
     return (
-        <div className="h-screen flex bg-cover " style={{backgroundImage: "url('/images/home.jpg')"}}>
+        <div className="h-screen flex bg-cover " style={{backgroundImage: props.imgUrl}}>
                 <div className="bg-black bg-opacity-60 h-full w-full flex items-center">
                 <div className="text-center w-full">
                     <span className="text-8xl font-bold">
@@ -20,7 +20,8 @@ function Hero(props) {
 
 Hero.propTypes = {
     title: PropTypes.string,
-    subtitle: PropTypes.string
+    subtitle: PropTypes.string,
+    imgUrl: PropTypes.string
 }
 
 export default Hero
