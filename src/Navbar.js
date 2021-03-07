@@ -80,7 +80,7 @@ function Navbar() {
             </motion.div>
             <div className="fixed flex w-full px-5 lg:px-10 pt-5 justify-between top-0">
                 <motion.div whileTap={{scale: 0.4}}><Link to="/"><Logo className="h-10"/></Link></motion.div>
-                <div><FontAwesomeIcon icon={faBars} className="fill-current text-white w-10 text-3xl" onClick={() => {setNavState()}} /></div>
+                <div><FontAwesomeIcon icon={faBars} className="fill-current text-white w-10 text-3xl cursor-pointer" onClick={() => {setNavState()}} /></div>
             </div>
             </>
         )
