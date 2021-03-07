@@ -18,7 +18,7 @@ function Hero({title, subtitle, bgImage}) {
 
     return (
         <motion.div className="h-screen w-screen bg-gray-700 fixed top-0 -z-10 flex bg-cover" style={heroStyle}>
-                <div className="bg-black bg-opacity-60 h-full w-full flex items-center">
+            <div className="bg-black bg-opacity-60 h-full w-full flex items-center">
                 <div className="text-center w-full">
                     <span className="text-4xl font-bold md:text-6xl lg:text-8xl">
                         <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-red-500">
