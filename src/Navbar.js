@@ -5,10 +5,6 @@ import { React, Component } from 'react'
 import { ReactComponent as Logo} from "./logo.svg"
 import { motion } from "framer-motion"
 
-const menuItemMotion = {
-    scale: 1.1, opacity : 0.8 
-}
-
 export default class Navbar extends Component {
 
     constructor(props) {
@@ -27,12 +23,12 @@ export default class Navbar extends Component {
             <motion.div 
             className={this.state.showMenu ? 
                 "fixed top-0 w-full h-full bg-gradient-to-tr from-purple-700 to-red-600 flex items-center" : 
-                "hidden"
+                "hidden" // TODO: make fade-out gradual
             }
             animate={this.state.showMenu ? { opacity : 1 } : { opacity: 0 }}
             >
-                <ul className="text-3xl font-medium text-white tracking-wider leading-relaxed text-center w-full">
-                        <motion.li whileHover={ this.menuItemMotion }><a href="#">Portfolio</a></motion.li>
+                <ul className="text-3xl lg:text-4xl font-medium text-white tracking-wider leading-relaxed lg:leading-loose text-center w-full">
+                        <motion.li>Portfolio</motion.li>
                         <li>About</li>
                         <li>Instagram</li>
                         <li>Contact</li>
