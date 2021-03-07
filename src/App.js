@@ -1,16 +1,18 @@
 import React from 'react'
-import AboutText from './AboutText'
-import Hero from './Hero'
-import homeImage from './images/home.jpg'
 import Navbar from "./Navbar"
+import { Route, BrowserRouter as Router } from "react-router-dom"
+import HomePage from './pages/HomePage'
+import AboutPage from './pages/AboutPage'
+import ContactPage from './pages/ContactPage'
 
 function App() {
   return (
-    <>
-    <Hero title="I ❤️ taking pics." subtitle="Hi! I'm Evgeny, a full-stack creative in Rotterdam, and I like to shoot photos, videos, and get shit done." bgImage={homeImage} />
-    <Navbar />
-    <AboutText />
-    </>
+    <Router>
+      <Navbar />
+      <Route path="/" exact component={HomePage} />
+      <Route path="/about" component={AboutPage} />
+      <Route path="/contact" component={ContactPage} />
+    </Router>
   );
 }
 
