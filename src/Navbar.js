@@ -1,31 +1,42 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
 import { faInstagram, faLinkedinIn, faYoutube } from '@fortawesome/free-brands-svg-icons'
-import { React, Component } from 'react'
+import { React, useState } from 'react'
 import { ReactComponent as Logo} from "./logo.svg"
 import { motion } from "framer-motion"
 
-export default class Navbar extends Component {
 
-    constructor(props) {
-        super(props)
-        this.state = { showMenu: false }
-        this.menuShowToggle = this.menuShowToggle.bind(this)
+const menuVariants = {
+    hidden: {
+        opacity: 0,
+    },
+    visible: {
+        opacity: 1,
+    }
+}
+
+function Navbar() {
+
+    const [isOpen, setIsOpen] = useState(false)
+    const [isVisible, setIsVisible] = useState(false)
+
+    function setNavState() { 
+        setIsOpen(!isOpen) // setIsOpen is called async, so we check the opposite of it to set visible (big retard) 
+        if (!isOpen) {
+            setIsVisible(true)
+            console.log("lmfao2")
+        }
+
     }
 
-    menuShowToggle = () => {
-        this.setState({showMenu : !this.state.showMenu})
-    }
-
-    render = () => {
         return (
             <>
             <motion.div 
-            className={this.state.showMenu ? 
-                "fixed top-0 w-full h-full bg-gradient-to-tr from-purple-700 to-red-600 flex items-center" : 
-                "hidden" // TODO: make fade-out gradual
-            }
-            animate={this.state.showMenu ? { opacity : 1 } : { opacity: 0 }}
+            className={isVisible ? "fixed top-0 w-full h-full bg-gradient-to-tr from-purple-700 to-red-600 flex items-center" : "hidden"}
+            animate={isOpen ? "visible" : "hidden"}
+            initial={{opacity: 0}}
+            variants={menuVariants}
+            onAnimationComplete={() => isOpen ? null : setIsVisible(false)}
             >
                 <ul className="text-3xl lg:text-4xl font-medium text-white tracking-wider leading-relaxed lg:leading-loose text-center w-full">
                         <motion.li>Portfolio</motion.li>
@@ -42,9 +53,10 @@ export default class Navbar extends Component {
             </motion.div>
             <div className="fixed flex w-full px-10 pt-5 justify-between top-0">
                 <div><Logo className="h-10"/></div>
-                <div><FontAwesomeIcon icon={faBars} className="fill-current text-white w-10 text-3xl" onClick={this.menuShowToggle} /></div>
+                <div><FontAwesomeIcon icon={faBars} className="fill-current text-white w-10 text-3xl" onClick={() => {setNavState()}} /></div>
             </div>
             </>
         )
-    }
 }
+
+export default Navbar
