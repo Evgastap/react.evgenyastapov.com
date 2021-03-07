@@ -2,18 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { motion, useTransform, useViewportScroll } from "framer-motion"
 
-function Hero({title, subtitle, imgUrl}) {
+function Hero({title, subtitle, bgImage}) {
     const { scrollY } = useViewportScroll()
     let intViewportHeight = window.innerHeight;
     
     const yPosAnimation = useTransform(scrollY, [0,intViewportHeight/2], [1,0])
     const yScaleAnimation = useTransform(scrollY, [0, intViewportHeight/2], [1, 0.98])
     const heroStyle = {
-        backgroundImage: imgUrl, 
+        backgroundImage: `url(${bgImage})`, 
         opacity: yPosAnimation, 
         backgroundPositionX: "85%", 
         backgroundPositionY: "25%",
-        scale: yScaleAnimation
+        scale: yScaleAnimation,
     }
 
     return (
@@ -35,7 +35,6 @@ function Hero({title, subtitle, imgUrl}) {
 Hero.propTypes = {
     title: PropTypes.string,
     subtitle: PropTypes.string,
-    imgUrl: PropTypes.string
 }
 
 export default Hero
