@@ -3,7 +3,7 @@ import { faBars, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
 import { faInstagram, faLinkedinIn, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import { React, useState } from 'react'
 import { ReactComponent as Logo} from "./logo.svg"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { Link } from "react-router-dom"
 
 
@@ -28,7 +28,14 @@ const linkVariants = {
     visible: {
         opacity: 1, 
         y: 0
-    }
+    },
+    hover: {
+        scale: 1.1, 
+        y: -5
+    },
+    tap: {
+        scale: 0.4
+    },
 }
 
     // links
@@ -47,43 +54,40 @@ const linkVariants = {
 
 function Navbar() {
 
-    // states
+    // state
     const [isOpen, setIsOpen] = useState(false)
-    const [isVisible, setIsVisible] = useState(false)
 
-    function setNavState() { 
-        setIsOpen(!isOpen) // setIsOpen is called async, so we check the opposite of it to setIsVisible (big retard) 
-        if (!isOpen) {
-            setIsVisible(true)
-        }
-    }
-
-        return (
-            <>
-            <motion.div 
-                className={isVisible ? "fixed top-0 w-full h-full bg-gradient-to-tr from-purple-700 to-red-600 flex items-center justify-center" : "hidden"}
-                animate={isOpen ? "visible" : "hidden"}
-                variants={menuVariants}
-                onAnimationComplete={() => isOpen ? null : setIsVisible(false)}
-            >
-                <ul className="text-3xl lg:text-4xl font-medium text-white tracking-wider leading-relaxed lg:leading-loose text-center" onClick={() => {setNavState()}}>
-                    {linksMap.map((link, index) => (
-                        <motion.li variants={linkVariants} key={index} whileHover={{scale: 1.1, y: -5}} transition={{duration: 0.25}} whileTap={{scale: 0.4}}><Link to={link.url}>{link.title}</Link></motion.li>
-                    ))}
-                    <motion.li variants={linkVariants} whileHover={{scale: 1.1, y: -5}} transition={{duration: 0.25}} whileTap={{scale: 0.4}}><a href="https://instagram.com/evgastap">Instagram</a></motion.li>
-                    <motion.li variants={linkVariants} className="pt-5">
-                        {iconsMap.map((item, index) => (
-                            <motion.div className="inline-block" whileHover={{scale: 1.1, y: -5}} whileTap={{scale: 0.4}}><a key={index} href={item.url}><FontAwesomeIcon icon={item.fa} className="mx-4"/></a></motion.div>
+    return (
+        <>
+            <AnimatePresence>
+                {isOpen && <motion.div 
+                    className={"fixed top-0 w-full h-full bg-gradient-to-tr from-purple-700 to-red-600 flex items-center justify-center"}
+                    variants={menuVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                >
+                    <ul className="text-3xl lg:text-4xl font-medium text-white tracking-wider leading-relaxed lg:leading-loose text-center" onClick={() => {setIsOpen(false)}}>
+                        {linksMap.map((link, index) => (
+                            <motion.li variants={linkVariants} key={index}><Link to={link.url}>{link.title}</Link></motion.li>
                         ))}
-                    </motion.li>
-                </ul>
-            </motion.div>
+                        <motion.li variants={linkVariants}><a href="https://instagram.com/evgastap">Instagram</a></motion.li>
+                        <motion.li variants={linkVariants} className="pt-5">
+                            {iconsMap.map((item, index) => (
+                                <motion.div className="inline-block" variants={linkVariants}><a key={index} href={item.url}><FontAwesomeIcon icon={item.fa} className="mx-4"/></a></motion.div>
+                            ))}
+                        </motion.li>
+                    </ul>
+                </motion.div>}
+            </AnimatePresence>
+        
+            {/* navbar: home icon & burger menu */}
             <div className="fixed flex w-full px-5 lg:px-10 pt-5 justify-between top-0">
-                <motion.div whileTap={{scale: 0.4}}><Link to="/"><Logo className="h-10"/></Link></motion.div>
-                <div><FontAwesomeIcon icon={faBars} className="fill-current text-white w-10 text-3xl cursor-pointer" onClick={() => {setNavState()}} /></div>
+                <motion.div whileTap={{scale: 0.4}} onClick={() => setIsOpen(false)}><Link to="/"><Logo className="h-10"/></Link></motion.div>
+                <div><FontAwesomeIcon icon={faBars} className="fill-current text-white w-10 text-3xl cursor-pointer" onClick={() => setIsOpen(!isOpen)} /></div>
             </div>
-            </>
-        )
+        </>
+    )
 }
 
 export default Navbar
