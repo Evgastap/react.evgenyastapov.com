@@ -1,5 +1,5 @@
 import React from 'react'
-// import ImageCard from './ImageCard'
+import ImageCard from './ImageCard'
 import photo1 from './images/work-1.jpg'
 import photo2 from './images/work-2.jpg'
 import photo3 from './images/work-3.jpg'
@@ -29,12 +29,14 @@ export default function Portfolio({images}) {
                     </span>
                 </div>
                 <div className="w-3/4 grid lg:grid-cols-2 gap-4 row-auto">
-                    {/* <ImageCard image={photo1} category="events" title="ETS 2019" description="Organized and shot this 500+ person tech event." />
-                    <ImageCard image={photo2} category="portraits" title="Smoke bombs" description="It's a cliché in photography, but it's fun as heck." /> */}
-                    <img src={photo1} alt=""/>
+                    <ImageCard image={photo1} category="events" title="ETS 2019" description="Organized and shot this 500+ person tech event." />
+                    <ImageCard image={photo2} category="portraits" title="Smoke bombs" description="It's a cliché in photography, but it's fun as heck." />
+                    <ImageCard image={photo3} category="personal" title="Milky way" description="It's a dream of mine to go to Norway to shoot the milky way and northern lights. One day. This is the best I got so far." />
+                    <ImageCard image={photo4} category="portraits" title="Portraits" description="I shoot portraits, too!" />
+                    {/* <img src={photo1} alt=""/>
                     <img src={photo2} alt=""/>
                     <img src={photo3} alt=""/>
-                    <img src={photo4} alt=""/>
+                    <img src={photo4} alt=""/> */}
                 </div>
                 {/* <div className="w-3/4 flex flex-wrap">
                     <img src={photo1} alt="" className="w-1/2" /> 
