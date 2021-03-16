@@ -29,6 +29,7 @@ const linkVariants = {
         opacity: 1, 
         y: 0
     },
+    // TODO: use these
     hover: {
         scale: 1.1, 
         y: -5
@@ -69,12 +70,12 @@ function Navbar() {
                 >
                     <ul className="text-3xl lg:text-4xl font-medium text-white tracking-wider leading-relaxed lg:leading-loose text-center" onClick={() => {setIsOpen(false)}}>
                         {linksMap.map((link, index) => (
-                            <motion.li variants={linkVariants} key={index}><Link to={link.url}>{link.title}</Link></motion.li>
+                            <motion.li variants={linkVariants} whileHover={{scale:1.1}} whileTap={{scale:0.5}} key={index}><Link to={link.url}>{link.title}</Link></motion.li>
                         ))}
-                        <motion.li variants={linkVariants}><a href="https://instagram.com/evgastap">Instagram</a></motion.li>
-                        <motion.li variants={linkVariants} className="pt-5">
+                        <motion.li variants={linkVariants} whileHover={{scale:1.1}} whileTap={{scale:0.5}}><a href="https://instagram.com/evgastap">Instagram</a></motion.li>
+                        <motion.li variants={linkVariants} whileHover={{scale:1.1}} whileTap={{scale:0.5}} className="pt-5">
                             {iconsMap.map((item, index) => (
-                                <motion.div className="inline-block" variants={linkVariants}><a key={index} href={item.url}><FontAwesomeIcon icon={item.fa} className="mx-4"/></a></motion.div>
+                                <motion.div className="inline-block" variants={linkVariants} key={index}><a href={item.url}><FontAwesomeIcon icon={item.fa} className="mx-4"/></a></motion.div>
                             ))}
                         </motion.li>
                     </ul>
