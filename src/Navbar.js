@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faEnvelopeOpen } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faEnvelopeOpen, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faInstagram, faLinkedinIn, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import { React, useState } from 'react'
 import { ReactComponent as Logo} from "./logo.svg"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion"
 import { Link } from "react-router-dom"
 
 
@@ -84,8 +84,13 @@ function Navbar() {
         
             {/* navbar: home icon & burger menu */}
             <div className="fixed flex w-full px-5 lg:px-10 pt-5 justify-between top-0">
-                <motion.div whileTap={{scale: 0.4}} onClick={() => setIsOpen(false)}><Link to="/"><Logo className="h-10"/></Link></motion.div>
-                <div><FontAwesomeIcon icon={faBars} className="fill-current text-white w-10 text-3xl cursor-pointer" onClick={() => setIsOpen(!isOpen)} /></div>
+                <motion.div whileTap={{scale: 0.4}} onClick={() => setIsOpen(false)} layoutId="navBar"><Link to="/"><Logo className="h-10"/></Link></motion.div>
+                <AnimateSharedLayout>
+                    {!isOpen && <motion.div layoutId="navBarLayout"><FontAwesomeIcon icon={faBars} className="fill-current text-white w-10 text-3xl cursor-pointer" onClick={() => setIsOpen(!isOpen)} /></motion.div>}
+                    {isOpen && <AnimatePresence>
+                        <motion.div layoutId="navBarLayout"><FontAwesomeIcon icon={faTimes} className="fill-current text-white w-10 text-3xl cursor-pointer" onClick={() => setIsOpen(!isOpen)}/></motion.div>
+                    </AnimatePresence>}
+                </AnimateSharedLayout>
             </div>
         </>
     )
